@@ -5,7 +5,11 @@ public class Lecture4Exercises {
      *   lecture 4 page 15
      */
     public long factorial(int n) {
-        return 0L;
+        long result = 1;
+        for(int i = 1; i <= n; i++) {
+            result *= (long)i;
+        }
+        return result;
     }
 
     /*
@@ -14,7 +18,15 @@ public class Lecture4Exercises {
      *   lecture 4 page 19
      */
     public long fibonacci(int n) {
-        return 0;
+        long firstTerm = 1;
+        long secondTerm = 1;
+        for(int i = 1; i < n; i++) {
+            long nextTerm = firstTerm + secondTerm;
+            
+            firstTerm = secondTerm;
+            secondTerm = nextTerm;
+        }
+        return firstTerm;
     }
 
     /*
@@ -22,7 +34,11 @@ public class Lecture4Exercises {
      *   lecture 4 page 19
      */
     public String reverse(String word) {
-        return null;
+        String reversedString = "";
+        for(int i = word.length()-1; i >= 0; i--) {
+            reversedString += word.charAt(i);
+        }
+        return reversedString;
     }
 
     /*
@@ -32,7 +48,14 @@ public class Lecture4Exercises {
      *   lecture 4 page 19
      */
     public boolean isPalindrome(String line) {
-        return false;
+        line = line.replaceAll(" ", "");
+        line = line.toLowerCase();
+        String reversedLine = reverse(line);
+        if(reversedLine.equals(line)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*
@@ -47,6 +70,16 @@ public class Lecture4Exercises {
      *   lecture 4 page 26
      */
     public char[][] dotPlot(String str1, String str2) {
-        return null;
+        char[][] dots = new char[str1.length()][str2.length()];
+        for(int i = 0; i < str1.length(); i++) {
+            for(int j = 0; j < str2.length(); j++) {
+                if(str1.charAt(i) == str2.charAt(j)) {
+                    dots[i][j] = '*';
+                } else {
+                    dots[i][j] = ' ';
+                }
+            }
+        }
+        return dots;
     }
 }
