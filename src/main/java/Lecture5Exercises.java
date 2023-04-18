@@ -1,3 +1,6 @@
+import java.util.Random;
+
+
 public class Lecture5Exercises {
 
     /*
@@ -6,7 +9,14 @@ public class Lecture5Exercises {
      *   lecture 5 page 14
      */
     public String weakPassword(int length) {
-        return null;
+        Random rand = new Random();
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        String password = "";
+        for(int i = 0; i < length; i++) {
+            int randomNumber = rand.nextInt(alphabet.length);
+            password += alphabet[randomNumber];
+        }
+        return password;
     }
 
     /*
@@ -15,8 +25,33 @@ public class Lecture5Exercises {
      *   lecture 5 page 14
      */
     public String strongPassword(int length) throws Exception {
-        return null;
+        if(length < 3) {
+            throw new Exception();
+        }
+
+        Random rand = new Random();
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        char[] digits = "1234567890".toCharArray();
+        char[] specialChars =  "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~".toCharArray();
+        char[] allChars = "abcdefghijklmnopqrstuvwxyz1234567890!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~".toCharArray();
+        String password = "";
+        int digitIndex = rand.nextInt(length);
+        int specialIndex = rand.nextInt(length);
+        while(specialIndex == digitIndex) {
+            specialIndex = rand.nextInt(length);
+        }
+        for(int i = 0; i < length; i++) {
+            if(i == digitIndex) {
+                password += digits[rand.nextInt(digits.length)];
+            } else if(i == specialIndex) {
+                password += specialChars[rand.nextInt(digits.length)];
+            } else {
+                password += allChars[rand.nextInt(digits.length)];
+            }
+        }
+        return password;
     }
+    
 
     /*
      *   implement a function that checks if a integer is a fibobin number
@@ -27,6 +62,33 @@ public class Lecture5Exercises {
      *   lecture 5 page 17
      */
     public boolean isFiboBin(int n) {
+        for(int i = 1; i <= n; i++) {
+            long fibNum = fibonacci(i);
+            String binRep = Integer.toBinaryString(i);
+            long oneCount = 0;
+            for(char j: binRep.toCharArray()) {
+                if(j == '1') {
+                    oneCount++;
+                }
+            }
+            long sum = fibNum + oneCount;
+            if(sum == n) {
+                return true;
+            }
+        }
         return false;
+    }
+
+    // for the above method
+    public long fibonacci(int n) {
+        long firstTerm = 1;
+        long secondTerm = 1;
+        for(int i = 1; i < n; i++) {
+            long nextTerm = firstTerm + secondTerm;
+            
+            firstTerm = secondTerm;
+            secondTerm = nextTerm;
+        }
+        return firstTerm;
     }
 }
